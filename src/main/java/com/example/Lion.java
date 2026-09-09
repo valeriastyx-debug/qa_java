@@ -1,31 +1,44 @@
 package com.example;
 
-public class Lion {
+import java.util.List;
 
+public class Lion {
     private Feline feline;
+    private boolean hasMane;
     private String sex;
 
     public Lion(Feline feline, String sex) throws Exception {
         this.feline = feline;
-        if ("Самец".equals(sex)) {
+
+        // Переводим входную строку в нижний регистр, чтобы избежать проблем с кодировкой первой буквы
+        if (sex != null && "самец".equalsIgnoreCase(sex.trim())) {
+            this.hasMane = true;
             this.sex = sex;
-        } else if ("Самка".equals(sex)) {
+        } else if (sex != null && "самка".equalsIgnoreCase(sex.trim())) {
+            this.hasMane = false;
             this.sex = sex;
         } else {
             throw new Exception("Используйте допустимые значения пола животного - самец или самка");
         }
     }
 
+    public boolean doesHaveMane() {
+        return hasMane;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
     public int getKittens() {
         return feline.getKittens();
     }
 
-    public boolean doesHaveMane() {
-        return "Самец".equals(sex);
-    }
-
-    public java.util.List<String> getFood() throws Exception {
+    public List<String> getFood() throws Exception {
         return feline.getFood("Хищник");
     }
 }
+
+
+
 
